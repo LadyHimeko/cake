@@ -1,10 +1,275 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Webpage Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday! 🎂</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      font-family: "Trebuchet MS", sans-serif;
+      background: linear-gradient(135deg, #ffe6f2, #e6e6ff, #dff7ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #5c496b;
+    }
+
+    .container {
+      position: relative;
+      width: 90%;
+      max-width: 650px;
+      padding: 45px 30px;
+      text-align: center;
+      background: rgba(255,255,255,0.75);
+      border-radius: 30px;
+      box-shadow: 0 15px 40px rgba(100, 80, 120, 0.2);
+      backdrop-filter: blur(8px);
+      z-index: 2;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      color: #e98bb5;
+      text-shadow: 3px 3px #fff;
+      animation: bounce 1.5s infinite;
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      margin: 15px 0 25px;
+    }
+
+    .cake {
+      font-size: 7rem;
+      cursor: pointer;
+      display: inline-block;
+      transition: transform 0.3s;
+      user-select: none;
+    }
+
+    .cake:hover {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    .message {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin: 20px auto;
+      max-width: 500px;
+    }
+
+    button {
+      border: none;
+      background: #e98bb5;
+      color: white;
+      padding: 13px 25px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 5px 15px rgba(233,139,181,0.4);
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      background: #d970a1;
+    }
+
+    .secret {
+      display: none;
+      margin-top: 20px;
+      padding: 18px;
+      background: #fff4fa;
+      border-radius: 20px;
+      animation: appear 0.8s ease;
+    }
+
+    .balloon {
+      position: fixed;
+      bottom: -120px;
+      font-size: 4rem;
+      animation: float 10s linear infinite;
+      z-index: 1;
+    }
+
+    .b1 { left: 5%; animation-delay: 0s; }
+    .b2 { left: 20%; animation-delay: 3s; }
+    .b3 { right: 15%; animation-delay: 1s; }
+    .b4 { right: 3%; animation-delay: 5s; }
+
+    .confetti {
+      position: fixed;
+      top: -20px;
+      width: 10px;
+      height: 15px;
+      animation: fall linear forwards;
+      z-index: 5;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(0) rotate(0deg);
+      }
+      to {
+        transform: translateY(-120vh) rotate(360deg);
+      }
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 35px 20px;
+      }
+
+      .cake {
+        font-size: 5rem;
+      }
+
+      .message {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <p>Hello World! 😊</p>
+
+  <!-- Floating balloons -->
+  <div class="balloon b1">🎈</div>
+  <div class="balloon b2">🎈</div>
+  <div class="balloon b3">🎈</div>
+  <div class="balloon b4">🎈</div>
+
+  <main class="container">
+
+    <h1>Happy Birthday! 🎉</h1>
+
+    <p class="subtitle">
+      Today is officially a day to celebrate YOU! 💗
+    </p>
+
+    <div class="cake" onclick="celebrate()">🎂</div>
+
+    <p class="message">
+      Wishing you a day filled with laughter, good food,
+      wonderful memories, and all the little things that
+      make you happy. ✨
+      <br><br>
+      May this new chapter bring you lots of reasons to smile,
+      exciting adventures, and dreams that come true. 🌷
+    </p>
+
+    <button onclick="showSecret()">
+      💌 One More Thing...
+    </button>
+
+    <div class="secret" id="secret">
+      <strong>Here's to another year of being amazing! 🥂</strong>
+      <br><br>
+      Don't forget to make a wish. 🌟
+      <br>
+      You deserve a really, really good year. 💕
+    </div>
+
+  </main>
+
+  <script>
+    function createConfetti() {
+      const colors = [
+        "#ff9fc7",
+        "#ffd166",
+        "#9ad9ff",
+        "#c8a2ff",
+        "#9be7c4"
+      ];
+
+      for (let i = 0; i < 120; i++) {
+        const confetti = document.createElement("div");
+
+        confetti.className = "confetti";
+
+        confetti.style.left = Math.random() * 100 + "vw";
+        confetti.style.background =
+          colors[Math.floor(Math.random() * colors.length)];
+
+        confetti.style.animationDuration =
+          (Math.random() * 3 + 2) + "s";
+
+        confetti.style.animationDelay =
+          Math.random() * 1.5 + "s";
+
+        confetti.style.transform =
+          `rotate(${Math.random() * 360}deg)`;
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => {
+          confetti.remove();
+        }, 6000);
+      }
+    }
+
+    function celebrate() {
+      createConfetti();
+
+      const cake = document.querySelector(".cake");
+
+      cake.style.transform = "scale(1.3) rotate(5deg)";
+
+      setTimeout(() => {
+        cake.style.transform = "";
+      }, 500);
+    }
+
+    function showSecret() {
+      const secret = document.getElementById("secret");
+
+      secret.style.display =
+        secret.style.display === "block"
+          ? "none"
+          : "block";
+
+      createConfetti();
+    }
+
+    // Small celebration when the page opens
+    window.addEventListener("load", () => {
+      setTimeout(createConfetti, 500);
+    });
+  </script>
+
 </body>
 </html>
+```
